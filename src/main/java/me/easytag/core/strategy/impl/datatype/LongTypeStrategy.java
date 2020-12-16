@@ -11,6 +11,9 @@ public class LongTypeStrategy implements DataTypeStrategy {
     public boolean handleEquals(LogicData source, LogicData target) {
         Long sourceLong = (Long) source.getValue();
         Long targetLong = (Long) target.getValue();
+        if(sourceLong == null || targetLong == null) {
+            return false;
+        }
         return sourceLong.equals(targetLong);
     }
 
@@ -18,6 +21,9 @@ public class LongTypeStrategy implements DataTypeStrategy {
     public boolean handleLess(LogicData source, LogicData target) {
         Long sourceLong = (Long) source.getValue();
         Long targetLong = (Long) target.getValue();
+        if(sourceLong == null || targetLong == null) {
+            return false;
+        }
         return sourceLong < targetLong;
     }
 
@@ -25,6 +31,24 @@ public class LongTypeStrategy implements DataTypeStrategy {
     public boolean handleGreater(LogicData source, LogicData target) {
         Long sourceLong = (Long) source.getValue();
         Long targetLong = (Long) target.getValue();
+        if(sourceLong == null || targetLong == null) {
+            return false;
+        }
         return sourceLong > targetLong;
+    }
+
+    @Override
+    public boolean handleIn(LogicData source, LogicData target) {
+        Long sourceLong = (Long) source.getValue();
+        Long[] targetLongArray = (Long[]) target.getValue();
+        if(sourceLong == null || targetLongArray == null || targetLongArray.length < 1) {
+            return false;
+        }
+        for (Long targetLong: targetLongArray) {
+            if(targetLong.equals(sourceLong)) {
+                return true;
+            }
+        }
+        return  false;
     }
 }

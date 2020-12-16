@@ -47,4 +47,9 @@ public class LogicData {
         LogicEngine logicEngine = LogicEngineFactory.getDefaultLogicEngine();
         return logicEngine.doCompare(this, target, LogicalOperatorEnum.GREATER);
     }
+
+    public boolean in(LogicData target) {
+        LogicEngine logicEngine = LogicEngineFactory.getDefaultLogicEngine();
+        return logicEngine.doCompare(this, target, LogicalOperatorEnum.IN);
+    }
 }

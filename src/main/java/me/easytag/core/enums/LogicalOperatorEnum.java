@@ -7,6 +7,8 @@ public enum  LogicalOperatorEnum {
     EQUALS(0, "="),
     GREATER(1, ">"),
     LESS(2, "<"),
+    IN(3, "IN"),
+    NOT_IN(4, "NOT IN")
     ;
     private Integer code;
     private String value;

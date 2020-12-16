@@ -5,6 +5,7 @@ import me.easytag.core.exception.LogicalTypeUnSupportException;
 import me.easytag.core.strategy.LogicalOperatorStrategy;
 import me.easytag.core.strategy.impl.logicaloperator.EqualsOperatorStrategy;
 import me.easytag.core.strategy.impl.logicaloperator.GreaterOperatorStrategy;
+import me.easytag.core.strategy.impl.logicaloperator.InOperatorStrategy;
 import me.easytag.core.strategy.impl.logicaloperator.LessOperatorStrategy;
 
 /**
@@ -22,6 +23,7 @@ public class LogicalOperatorStrategySelector {
             case EQUALS: return new EqualsOperatorStrategy();
             case LESS: return new LessOperatorStrategy();
             case GREATER: return new GreaterOperatorStrategy();
+            case IN: return new InOperatorStrategy();
             default: throw new LogicalTypeUnSupportException("不支持的逻辑运算类型:" + logicalOperator);
         }
     }

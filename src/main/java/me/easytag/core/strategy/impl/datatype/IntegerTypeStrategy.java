@@ -12,6 +12,9 @@ public class IntegerTypeStrategy implements DataTypeStrategy {
     public boolean handleEquals(LogicData source, LogicData target) {
         Integer sourceInt = (Integer) source.getValue();
         Integer targetInt = (Integer) target.getValue();
+        if(sourceInt == null || targetInt == null) {
+            return false;
+        }
         return sourceInt.equals(targetInt);
     }
 
@@ -19,6 +22,9 @@ public class IntegerTypeStrategy implements DataTypeStrategy {
     public boolean handleLess(LogicData source, LogicData target) {
         Integer sourceInt = (Integer) source.getValue();
         Integer targetInt = (Integer) target.getValue();
+        if(sourceInt == null || targetInt == null) {
+            return false;
+        }
         return sourceInt < targetInt;
     }
 
@@ -26,7 +32,25 @@ public class IntegerTypeStrategy implements DataTypeStrategy {
     public boolean handleGreater(LogicData source, LogicData target) {
         Integer sourceInt = (Integer) source.getValue();
         Integer targetInt = (Integer) target.getValue();
+        if(sourceInt == null || targetInt == null) {
+            return false;
+        }
         return sourceInt > targetInt;
+    }
+
+    @Override
+    public boolean handleIn(LogicData source, LogicData target) {
+        Integer sourceInt = (Integer) source.getValue();
+        Integer[] targetIntArray = (Integer[]) target.getValue();
+        if(sourceInt == null || targetIntArray == null || targetIntArray.length < 1) {
+            return false;
+        }
+        for (Integer targetInt: targetIntArray) {
+            if(targetInt.equals(sourceInt)) {
+                return true;
+            }
+        }
+        return  false;
     }
 
 }

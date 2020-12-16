@@ -8,4 +8,6 @@ public interface DataTypeStrategy {
     boolean handleLess(LogicData source, LogicData target);
 
     boolean handleGreater(LogicData source, LogicData target);
+
+    boolean handleIn(LogicData source, LogicData target);
 }

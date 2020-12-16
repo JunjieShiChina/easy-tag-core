@@ -13,6 +13,9 @@ public class DateTypeStrategy implements DataTypeStrategy {
     public boolean handleEquals(LogicData source, LogicData target) {
         Date sourceDate = (Date) source.getValue();
         Date targetDate = (Date) target.getValue();
+        if(sourceDate == null || targetDate == null) {
+            return false;
+        }
         return sourceDate.equals(targetDate);
     }
 
@@ -20,6 +23,9 @@ public class DateTypeStrategy implements DataTypeStrategy {
     public boolean handleLess(LogicData source, LogicData target) {
         Date sourceDate = (Date) source.getValue();
         Date targetDate = (Date) target.getValue();
+        if(sourceDate == null || targetDate == null) {
+            return false;
+        }
         return sourceDate.before(targetDate);
     }
 
@@ -27,6 +33,24 @@ public class DateTypeStrategy implements DataTypeStrategy {
     public boolean handleGreater(LogicData source, LogicData target) {
         Date sourceDate = (Date) source.getValue();
         Date targetDate = (Date) target.getValue();
+        if(sourceDate == null || targetDate == null) {
+            return false;
+        }
         return sourceDate.after(targetDate);
+    }
+
+    @Override
+    public boolean handleIn(LogicData source, LogicData target) {
+        Date sourceDate = (Date) source.getValue();
+        Date[] targetDateArray = (Date[]) target.getValue();
+        if(sourceDate == null || targetDateArray == null || targetDateArray.length < 1) {
+            return false;
+        }
+        for (Date targetDate: targetDateArray) {
+            if(sourceDate.equals(targetDate)) {
+                return true;
+            }
+        }
+        return  false;
     }
 }

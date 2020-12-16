@@ -12,6 +12,9 @@ public class StringTypeStrategy implements DataTypeStrategy {
     public boolean handleEquals(LogicData source, LogicData target) {
         String sourceStr = (String) source.getValue();
         String targetStr = (String) target.getValue();
+        if(sourceStr == null || targetStr == null) {
+            return false;
+        }
         return sourceStr.equals(targetStr);
     }
 
@@ -23,6 +26,21 @@ public class StringTypeStrategy implements DataTypeStrategy {
     @Override
     public boolean handleGreater(LogicData source, LogicData target) {
         throw new UnSupportHandleTypeException("字符串不支持比较大小");
+    }
+
+    @Override
+    public boolean handleIn(LogicData source, LogicData target) {
+        String sourceStr = (String) source.getValue();
+        String[] targetStrArrays = (String[]) target.getValue();
+        if(sourceStr == null || targetStrArrays == null || targetStrArrays.length < 1) {
+            return false;
+        }
+        for (String targetStr: targetStrArrays) {
+            if(sourceStr.equals(targetStr)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
