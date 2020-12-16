@@ -1,6 +1,7 @@
 package me.easytag.core.logic.dto;
 
 import me.easytag.core.enums.DataTypeEnum;
+import me.easytag.core.enums.LogicalOperatorEnum;
 import me.easytag.core.factory.LogicEngineFactory;
 import me.easytag.core.logic.dto.engine.logic.LogicEngine;
 
@@ -34,6 +35,16 @@ public class LogicData {
 
     public boolean equals(LogicData target) {
         LogicEngine logicEngine = LogicEngineFactory.getDefaultLogicEngine();
-        return logicEngine.doCompare(this, target);
+        return logicEngine.doCompare(this, target, LogicalOperatorEnum.EQUALS);
+    }
+
+    public boolean less(LogicData target) {
+        LogicEngine logicEngine = LogicEngineFactory.getDefaultLogicEngine();
+        return logicEngine.doCompare(this, target, LogicalOperatorEnum.LESS);
+    }
+
+    public boolean greater(LogicData target) {
+        LogicEngine logicEngine = LogicEngineFactory.getDefaultLogicEngine();
+        return logicEngine.doCompare(this, target, LogicalOperatorEnum.GREATER);
     }
 }
