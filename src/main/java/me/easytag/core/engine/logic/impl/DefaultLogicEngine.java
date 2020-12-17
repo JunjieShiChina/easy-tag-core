@@ -1,15 +1,11 @@
-package me.easytag.core.logic.dto.engine.logic.impl;
+package me.easytag.core.engine.logic.impl;
 
 import me.easytag.core.component.LogicalOperatorStrategySelector;
-import me.easytag.core.enums.DataTypeEnum;
 import me.easytag.core.enums.LogicalOperatorEnum;
 import me.easytag.core.exception.DataTypeUnMatchException;
-import me.easytag.core.exception.DataTypeUnSupportException;
-import me.easytag.core.logic.dto.LogicData;
-import me.easytag.core.logic.dto.engine.logic.LogicEngine;
+import me.easytag.core.dto.logic.LogicData;
+import me.easytag.core.engine.logic.LogicEngine;
 import me.easytag.core.strategy.LogicalOperatorStrategy;
-
-import java.util.Date;
 
 /**
  * 默认逻辑处理器

@@ -1,7 +1,7 @@
 package me.easytag.core.strategy.impl.datatype;
 
 import me.easytag.core.exception.UnSupportHandleTypeException;
-import me.easytag.core.logic.dto.LogicData;
+import me.easytag.core.dto.logic.LogicData;
 import me.easytag.core.strategy.DataTypeStrategy;
 
 /**

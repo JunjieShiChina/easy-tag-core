@@ -1,8 +1,11 @@
-package me.easytag.core.logic.dto.engine.logic;
+package me.easytag.core.engine.logic;
 
+import me.easytag.core.dto.logic.LogicData;
 import me.easytag.core.enums.LogicalOperatorEnum;
-import me.easytag.core.logic.dto.LogicData;
 
+/**
+ * 数据比较引擎
+ */
 public interface LogicEngine {
 
     boolean doCompare(LogicData source, LogicData target, LogicalOperatorEnum logicalOperator);

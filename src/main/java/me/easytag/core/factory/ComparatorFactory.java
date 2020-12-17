@@ -4,7 +4,7 @@ import me.easytag.core.comparators.Comparator;
 import me.easytag.core.comparators.impl.*;
 import me.easytag.core.enums.DataTypeEnum;
 import me.easytag.core.enums.LogicalOperatorEnum;
-import me.easytag.core.exception.LogicalTypeUnSupportException;
+import me.easytag.core.exception.UnSupportLogicalTypeException;
 
 public class ComparatorFactory {
     public static Comparator getComparator(LogicalOperatorEnum logicalOperator, DataTypeEnum dataType) {
@@ -17,7 +17,7 @@ public class ComparatorFactory {
             case NOT_IN: return new NotInComparator(dataType);
             case BETWEEN: return new BetweenComparator(dataType);
             case NOT_BETWEEN: return new NotBetweenComparator(dataType);
-            default: throw new LogicalTypeUnSupportException("不支持的逻辑运算类型:" + logicalOperator);
+            default: throw new UnSupportLogicalTypeException("不支持的逻辑运算类型:" + logicalOperator);
         }
     }
 }

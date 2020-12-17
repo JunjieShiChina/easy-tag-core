@@ -4,7 +4,7 @@ import me.easytag.core.comparators.Comparator;
 import me.easytag.core.converters.TypeConverter;
 import me.easytag.core.enums.DataTypeEnum;
 import me.easytag.core.factory.TypeConverterFactory;
-import me.easytag.core.logic.dto.LogicData;
+import me.easytag.core.dto.logic.LogicData;
 
 /**
  * NOT_IN 比较器

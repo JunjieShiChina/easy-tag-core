@@ -1,7 +1,7 @@
 package me.easytag.core.factory;
 
-import me.easytag.core.logic.dto.engine.logic.LogicEngine;
-import me.easytag.core.logic.dto.engine.logic.impl.DefaultLogicEngine;
+import me.easytag.core.engine.logic.LogicEngine;
+import me.easytag.core.engine.logic.impl.DefaultLogicEngine;
 
 public class LogicEngineFactory {
     public static LogicEngine getDefaultLogicEngine() {

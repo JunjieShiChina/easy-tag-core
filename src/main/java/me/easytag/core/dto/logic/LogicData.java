@@ -1,9 +1,9 @@
-package me.easytag.core.logic.dto;
+package me.easytag.core.dto.logic;
 
 import me.easytag.core.enums.DataTypeEnum;
 import me.easytag.core.enums.LogicalOperatorEnum;
 import me.easytag.core.factory.LogicEngineFactory;
-import me.easytag.core.logic.dto.engine.logic.LogicEngine;
+import me.easytag.core.engine.logic.LogicEngine;
 
 /**
  * 逻辑数据

@@ -1,7 +1,7 @@
 package me.easytag.core.component;
 
 import me.easytag.core.enums.DataTypeEnum;
-import me.easytag.core.exception.DataTypeUnSupportException;
+import me.easytag.core.exception.UnSupportDataTypeException;
 import me.easytag.core.strategy.DataTypeStrategy;
 import me.easytag.core.strategy.impl.datatype.*;
 
@@ -17,7 +17,7 @@ public class DateTypeStrategySelector {
             case LONG: return new LongTypeStrategy();
             case DATE: return new DateTypeStrategy();
             default:
-                throw new DataTypeUnSupportException("Unexpected value: " + dataType);
+                throw new UnSupportDataTypeException("Unexpected value: " + dataType);
         }
     }
 }

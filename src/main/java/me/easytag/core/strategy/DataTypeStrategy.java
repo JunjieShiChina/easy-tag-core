@@ -1,6 +1,6 @@
 package me.easytag.core.strategy;
 
-import me.easytag.core.logic.dto.LogicData;
+import me.easytag.core.dto.logic.LogicData;
 
 public interface DataTypeStrategy {
     boolean handleEquals(LogicData source, LogicData target);

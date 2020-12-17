@@ -1,7 +1,7 @@
 package me.easytag.core.strategy.impl.logicaloperator;
 
 import me.easytag.core.component.DateTypeStrategySelector;
-import me.easytag.core.logic.dto.LogicData;
+import me.easytag.core.dto.logic.LogicData;
 import me.easytag.core.strategy.DataTypeStrategy;
 import me.easytag.core.strategy.LogicalOperatorStrategy;
 

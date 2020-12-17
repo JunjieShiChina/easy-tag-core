@@ -2,7 +2,7 @@ package me.easytag.core.converters.impl;
 
 import me.easytag.core.converters.TypeConverter;
 import me.easytag.core.enums.DataTypeEnum;
-import me.easytag.core.logic.dto.LogicData;
+import me.easytag.core.dto.logic.LogicData;
 
 public class LongTypeConverter implements TypeConverter {
     @Override

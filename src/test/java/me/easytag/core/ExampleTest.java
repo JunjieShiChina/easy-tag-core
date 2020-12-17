@@ -1,8 +1,13 @@
 package me.easytag.core;
 
-import me.easytag.core.driver.ComparatorDriver;
-import me.easytag.core.driver.impl.DefaultComparatorDriver;
+import me.easytag.core.driver.comparator.ComparatorDriver;
+import me.easytag.core.driver.comparator.impl.DefaultComparatorDriver;
+import me.easytag.core.driver.judgetype.JudgeTypeDriver;
+import me.easytag.core.driver.judgetype.impl.DefaultJudgeTypeDriver;
+import me.easytag.core.dto.comparator.CompareData;
+import me.easytag.core.dto.judge.JudgeData;
 import me.easytag.core.enums.DataTypeEnum;
+import me.easytag.core.enums.JudgeTypeEnum;
 import me.easytag.core.enums.LogicalOperatorEnum;
 
 import java.text.DateFormat;
@@ -19,12 +24,26 @@ public class ExampleTest {
         String[] a2Array = new String[]{"a","b", "abc"};
         String a2 = "123";
 
-        ComparatorDriver driver = new DefaultComparatorDriver();
+        ComparatorDriver driver = DefaultComparatorDriver.getInstance();
 
         boolean execute = driver.execute(a1, a2Array, LogicalOperatorEnum.IN, DataTypeEnum.STRING);
+
+        CompareData compareData1 = new CompareData();
+        compareData1.setDataType(DataTypeEnum.STRING);
+        compareData1.setLogicalOperator(LogicalOperatorEnum.IN);
+        compareData1.setSourceData(a1);
+        compareData1.setTargetData(a2Array);
+
         System.out.println(execute);
 
         boolean execute2 = driver.execute(a1, a2, LogicalOperatorEnum.EQUALS, DataTypeEnum.STRING);
+
+        CompareData compareData2 = new CompareData();
+        compareData2.setDataType(DataTypeEnum.STRING);
+        compareData2.setLogicalOperator(LogicalOperatorEnum.EQUALS);
+        compareData2.setSourceData(a1);
+        compareData2.setTargetData(a2);
+
         System.out.println(execute2);
 
         boolean execute3 = driver.execute(a1, a2, LogicalOperatorEnum.NOT_EQUALS, DataTypeEnum.STRING);
@@ -45,6 +64,15 @@ public class ExampleTest {
 
         boolean executeDate2 = driver.execute(date3, Arrays.asList(date1, date2).toArray(), LogicalOperatorEnum.NOT_BETWEEN, DataTypeEnum.DATE);
         System.out.println(executeDate2);
+
+        JudgeTypeDriver judgeTypeDriver = DefaultJudgeTypeDriver.getInstance();
+
+        JudgeData judgeData = new JudgeData();
+        judgeData.setJudgeType(JudgeTypeEnum.OR);
+        judgeData.setCompareDataList(Arrays.asList(compareData1, compareData2));
+        boolean execute4 = judgeTypeDriver.execute(judgeData);
+        System.out.println(execute4);
+
     }
 
 }

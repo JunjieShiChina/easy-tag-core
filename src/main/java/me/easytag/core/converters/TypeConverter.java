@@ -1,6 +1,6 @@
 package me.easytag.core.converters;
 
-import me.easytag.core.logic.dto.LogicData;
+import me.easytag.core.dto.logic.LogicData;
 
 /**
  * 类型转换器
