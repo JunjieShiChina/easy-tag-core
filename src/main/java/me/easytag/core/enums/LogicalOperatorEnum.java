@@ -4,11 +4,14 @@ package me.easytag.core.enums;
  * 逻辑运算符枚举
  */
 public enum  LogicalOperatorEnum {
-    EQUALS(0, "="),
-    GREATER(1, ">"),
-    LESS(2, "<"),
-    IN(3, "IN"),
-    NOT_IN(4, "NOT IN")
+    EQUALS(0, "EQUALS"),
+    NOT_EQUALS(1, "NOT_EQUALS"),
+    GREATER(2, "GREATER"),
+    LESS(3, "LESS"),
+    IN(4, "IN"),
+    NOT_IN(5, "NOT IN"),
+    BETWEEN(6, "BETWEEN"),
+    NOT_BETWEEN(7, "NOT_BETWEEN")
     ;
     private Integer code;
     private String value;

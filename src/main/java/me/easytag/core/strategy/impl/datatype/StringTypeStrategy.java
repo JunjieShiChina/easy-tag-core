@@ -43,4 +43,9 @@ public class StringTypeStrategy implements DataTypeStrategy {
         return false;
     }
 
+    @Override
+    public boolean handleBetween(LogicData source, LogicData target) {
+        throw new UnSupportHandleTypeException("字符串不支持Between");
+    }
+
 }

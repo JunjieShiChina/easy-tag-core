@@ -3,6 +3,8 @@ package me.easytag.core.strategy.impl.datatype;
 import me.easytag.core.logic.dto.LogicData;
 import me.easytag.core.strategy.DataTypeStrategy;
 
+import java.util.Date;
+
 /**
  * DOUBLE类型策略
  */
@@ -50,5 +52,32 @@ public class DoubleTypeStrategy implements DataTypeStrategy {
             }
         }
         return  false;
+    }
+
+    @Override
+    public boolean handleBetween(LogicData source, LogicData target) {
+        Double sourceDouble = (Double) source.getValue();
+        Double[] targetDoubleArray = (Double[]) target.getValue();
+        if(sourceDouble == null || targetDoubleArray == null || targetDoubleArray.length < 2) {
+            return false;
+        }
+        Double targetDoubleFrom = null;
+        Double targetDoubleTo = null;
+
+        Double targetDouble1 = targetDoubleArray[0];
+        Double targetDouble2 = targetDoubleArray[1];
+        if(targetDouble1 < targetDouble2) {
+            targetDoubleFrom = targetDouble1;
+            targetDoubleTo = targetDouble2;
+        } else {
+            targetDoubleFrom = targetDouble2;
+            targetDoubleTo = targetDouble1;
+        }
+
+        if(sourceDouble.equals(targetDoubleFrom) || sourceDouble.equals(targetDoubleTo)) {
+            return true;
+        }
+
+        return sourceDouble > targetDoubleFrom && sourceDouble < targetDoubleTo;
     }
 }

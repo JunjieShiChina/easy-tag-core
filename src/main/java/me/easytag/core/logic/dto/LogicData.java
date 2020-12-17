@@ -52,4 +52,9 @@ public class LogicData {
         LogicEngine logicEngine = LogicEngineFactory.getDefaultLogicEngine();
         return logicEngine.doCompare(this, target, LogicalOperatorEnum.IN);
     }
+
+    public boolean between(LogicData target) {
+        LogicEngine logicEngine = LogicEngineFactory.getDefaultLogicEngine();
+        return logicEngine.doCompare(this, target, LogicalOperatorEnum.BETWEEN);
+    }
 }

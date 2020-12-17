@@ -10,4 +10,6 @@ public interface DataTypeStrategy {
     boolean handleGreater(LogicData source, LogicData target);
 
     boolean handleIn(LogicData source, LogicData target);
+
+    boolean handleBetween(LogicData source, LogicData target);
 }

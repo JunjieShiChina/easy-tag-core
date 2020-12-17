@@ -51,4 +51,31 @@ public class LongTypeStrategy implements DataTypeStrategy {
         }
         return  false;
     }
+
+    @Override
+    public boolean handleBetween(LogicData source, LogicData target) {
+        Long sourceLong = (Long) source.getValue();
+        Long[] targetLongArray = (Long[]) target.getValue();
+        if(sourceLong == null || targetLongArray == null || targetLongArray.length < 2) {
+            return false;
+        }
+        Long targetLongFrom = null;
+        Long targetLongTo = null;
+
+        Long targetLong1 = targetLongArray[0];
+        Long targetLong2 = targetLongArray[1];
+        if(targetLong1 < targetLong2) {
+            targetLongFrom = targetLong1;
+            targetLongTo = targetLong2;
+        } else {
+            targetLongFrom = targetLong2;
+            targetLongTo = targetLong1;
+        }
+
+        if(sourceLong.equals(targetLongFrom) || sourceLong.equals(targetLongTo)) {
+            return true;
+        }
+
+        return sourceLong > targetLongFrom && sourceLong < targetLongTo;
+    }
 }

@@ -53,4 +53,31 @@ public class IntegerTypeStrategy implements DataTypeStrategy {
         return  false;
     }
 
+    @Override
+    public boolean handleBetween(LogicData source, LogicData target) {
+        Integer sourceInt = (Integer) source.getValue();
+        Integer[] targetIntArray = (Integer[]) target.getValue();
+        if(sourceInt == null || targetIntArray == null || targetIntArray.length < 2) {
+            return false;
+        }
+        Integer targetIntegerFrom = null;
+        Integer targetIntegerTo = null;
+
+        Integer targetInteger1 = targetIntArray[0];
+        Integer targetInteger2 = targetIntArray[1];
+        if(targetInteger1 < targetInteger2) {
+            targetIntegerFrom = targetInteger1;
+            targetIntegerTo = targetInteger2;
+        } else {
+            targetIntegerFrom = targetInteger2;
+            targetIntegerTo = targetInteger1;
+        }
+
+        if(sourceInt.equals(targetIntegerFrom) || sourceInt.equals(targetIntegerTo)) {
+            return true;
+        }
+
+        return sourceInt > targetIntegerFrom && sourceInt < targetIntegerTo;
+    }
+
 }

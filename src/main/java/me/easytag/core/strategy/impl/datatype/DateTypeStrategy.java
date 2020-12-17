@@ -53,4 +53,31 @@ public class DateTypeStrategy implements DataTypeStrategy {
         }
         return  false;
     }
+
+    @Override
+    public boolean handleBetween(LogicData source, LogicData target) {
+        Date sourceDate = (Date) source.getValue();
+        Date[] targetDateArray = (Date[]) target.getValue();
+        if(sourceDate == null || targetDateArray == null || targetDateArray.length < 2) {
+            return false;
+        }
+        Date targetDateFrom = null;
+        Date targetDateTo = null;
+
+        Date targetDate1 = targetDateArray[0];
+        Date targetDate2 = targetDateArray[1];
+        if(targetDate1.before(targetDate2)) {
+            targetDateFrom = targetDate1;
+            targetDateTo = targetDate2;
+        } else {
+            targetDateFrom = targetDate2;
+            targetDateTo = targetDate1;
+        }
+
+        if(sourceDate.equals(targetDateFrom) || sourceDate.equals(targetDateTo)) {
+            return true;
+        }
+
+        return (sourceDate.after(targetDateFrom) && sourceDate.before(targetDateTo));
+    }
 }
