@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.easytag</groupId>
+    <groupId>com.github.easytag</groupId>
     <artifactId>easy-tag-core</artifactId>
     <name>easy-tag-core</name>
     <packaging>jar</packaging>
