@@ -8,11 +8,11 @@ import com.github.easytag.core.enums.DataTypeEnum;
 public class TypeConverterFactory {
     public static TypeConverter getConverter(DataTypeEnum targetType) {
         switch (targetType) {
-            case STRING: return new StringTypeConverter();
-            case INTEGER: return new IntegerTypeConverter();
-            case DATE: return new DateTypeConverter();
-            case LONG: return new LongTypeConverter();
-            case DOUBLE: return new DoubleTypeConverter();
+            case STRING: return StringTypeConverter.getInstance();
+            case INTEGER: return IntegerTypeConverter.getInstance();
+            case DATE: return DateTypeConverter.getInstance();
+            case LONG: return LongTypeConverter.getInstance();
+            case DOUBLE: return DoubleTypeConverter.getInstance();
             default: throw new UnSupportDataTypeException("Unexpected value: " + targetType);
         }
     }
