@@ -82,7 +82,6 @@ public class ExampleTest {
         expressionVars.put("B", new String[]{"a","b", "abc"});
         String expression = "A IN B AND [ A GREATER C OR C LESS D ] AND [ D IN E AND [ [ E GREATER F OR E EQUALS F ] OR F EQUALS G ] ]";
 
-
         DefaultExpressionParser defaultExpressionParser = new DefaultExpressionParser();
         ExpressNode headNode = defaultExpressionParser.parse(expression);
         System.out.println(headNode);

@@ -1,13 +1,11 @@
 package com.github.easytag.core.dto.express;
 
-import com.github.easytag.core.dto.logic.LogicData;
 import com.github.easytag.core.enums.JudgeTypeEnum;
 import com.github.easytag.core.enums.LogicalOperatorEnum;
 import com.github.easytag.core.enums.NodeTypeEnum;
 
 import java.io.Serializable;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Queue;
 
 /**

@@ -4,6 +4,7 @@ import com.github.easytag.core.dto.express.ExpressNode;
 import com.github.easytag.core.enums.ExpressionMarkEnum;
 import com.github.easytag.core.enums.JudgeTypeEnum;
 import com.github.easytag.core.enums.LogicalOperatorEnum;
+import com.github.easytag.core.enums.NodeTypeEnum;
 import com.github.easytag.core.exception.ExpressionSyntaxExpression;
 import com.github.easytag.core.resolver.ExpressionParser;
 
@@ -13,14 +14,22 @@ public class DefaultExpressionParser implements ExpressionParser {
 
     @Override
     public ExpressNode parse(String expression) {
-        String[] expressionStrNodes = expression.split(EXPRESSION_REGEX);
+        if(expression == null) {
+            throw new ExpressionSyntaxExpression("表达式不能为空");
+        }
 
+        return doParse(expression);
+    }
+
+    private ExpressNode doParse(String expression) {
+        String[] expressionStrNodes = expression.split(EXPRESSION_REGEX);
         ExpressNode headConditionNode = ExpressNode.createConditionNode();
         for (int index = 0; index < expressionStrNodes.length; ) {
             String expressionStrNode = expressionStrNodes[index];
             // itemNode
-            if (LogicalOperatorEnum.notExist(expressionStrNode) && JudgeTypeEnum.notExist(expressionStrNode) && ExpressionMarkEnum.notExist(expressionStrNode)) {
-                if (index + 2 > expressionStrNodes.length - 1) {
+            if (NodeTypeEnum.isExpressItem(expressionStrNode)) {
+//                if (index + 2 > expressionStrNodes.length - 1) {
+                if (index > expressionStrNodes.length - 3) {
                     throw new ExpressionSyntaxExpression("错误的表达式:" + expression);
                 }
                 String var1 = expressionStrNode;
@@ -40,12 +49,13 @@ public class DefaultExpressionParser implements ExpressionParser {
             }
 
             //judgeTypeNode
-            if (JudgeTypeEnum.exist(expressionStrNode)) {
+            if (NodeTypeEnum.isJudgeType(expressionStrNode)) {
                 JudgeTypeEnum judgeType = JudgeTypeEnum.findByName(expressionStrNode);
                 if (judgeType == null) {
                     throw new ExpressionSyntaxExpression("不支持的连接运算符:" + expressionStrNode);
                 }
-                if (index + 1 > expressionStrNodes.length - 1) {
+//                if (index + 1 > expressionStrNodes.length - 1) {
+                if (index > expressionStrNodes.length - 2) {
                     throw new RuntimeException();
                 }
 
@@ -53,7 +63,7 @@ public class DefaultExpressionParser implements ExpressionParser {
                 String nextExpressionStr = expressionStrNodes[index + 1];
                 int curIndex = index + 1;
                 // 发现下一个节点是一个表达式
-                if (nextExpressionStr.equals(ExpressionMarkEnum.LEFT_CONDITION_MARK.getDesc())) {
+                if (NodeTypeEnum.isCondition(nextExpressionStr)) {
                     // 抽取子表达式
                     String childrenExpression = getChildrenExpression(expressionStrNodes, index + 1);
                     // 得到子表达式长度
@@ -64,47 +74,51 @@ public class DefaultExpressionParser implements ExpressionParser {
 
                     index = curIndex + childrenExpressionLen + 2;
                 } else
-                // 发现下一个节点itemNode
-                if (LogicalOperatorEnum.notExist(nextExpressionStr) && JudgeTypeEnum.notExist(nextExpressionStr) && ExpressionMarkEnum.notExist(nextExpressionStr)) {
-                    if (curIndex + 2 > expressionStrNodes.length - 1) {
+                    // 发现下一个节点itemNode
+                    if (NodeTypeEnum.isExpressItem(nextExpressionStr)) {
+//                        if (curIndex + 2 > expressionStrNodes.length - 1) {
+                        if (curIndex > expressionStrNodes.length - 3) {
+                            throw new ExpressionSyntaxExpression("错误的表达式:" + expression);
+                        }
+                        String var1 = nextExpressionStr;
+                        String logicalOperatorStr = expressionStrNodes[curIndex + 1];
+                        LogicalOperatorEnum logicalOperator = LogicalOperatorEnum.findByName(logicalOperatorStr);
+                        if (logicalOperator == null) {
+                            throw new ExpressionSyntaxExpression("不支持的逻辑运算符:" + logicalOperatorStr);
+                        }
+                        String var2 = expressionStrNodes[curIndex + 2];
+                        index = curIndex + 3;
+
+                        // conditionNode下如果直接发现表达式细项，默认拼接AND节点
+                        ExpressNode itemNode = ExpressNode.createItemNode(var1, logicalOperator, var2);
+                        judgeTypeNode.getChildrenNodes().add(itemNode);
+                    } else {
+                        // judgeType的下一个节点只能是子表达式或者细项
                         throw new ExpressionSyntaxExpression("错误的表达式:" + expression);
                     }
-                    String var1 = nextExpressionStr;
-                    String logicalOperatorStr = expressionStrNodes[curIndex + 1];
-                    LogicalOperatorEnum logicalOperator = LogicalOperatorEnum.findByName(logicalOperatorStr);
-                    if (logicalOperator == null) {
-                        throw new ExpressionSyntaxExpression("不支持的逻辑运算符:" + logicalOperatorStr);
-                    }
-                    String var2 = expressionStrNodes[curIndex + 2];
-                    index = curIndex + 3;
-
-                    // conditionNode下如果直接发现表达式细项，默认拼接AND节点
-                    ExpressNode itemNode = ExpressNode.createItemNode(var1, logicalOperator, var2);
-                    judgeTypeNode.getChildrenNodes().add(itemNode);
-                } else {
-                    // judgeType的下一个节点只能是子表达式或者细项
-                    throw new ExpressionSyntaxExpression("错误的表达式:" + expression);
-                }
 
                 headConditionNode.getChildrenNodes().add(judgeTypeNode);
-            }
-
+            } else
             // 发现是一个表达式
-            if (expressionStrNode.equals(ExpressionMarkEnum.LEFT_CONDITION_MARK.getDesc())) {
+            if (NodeTypeEnum.isCondition(expressionStrNode)) {
                 // 默认拼接AND节点
                 ExpressNode andTypeNode = ExpressNode.createJudgeTypeNode(JudgeTypeEnum.AND);
-
                 // 抽取子表达式
                 String childrenExpression = getChildrenExpression(expressionStrNodes, index);
                 // 得到子表达式长度
                 Integer childrenExpressionLen = getExpressionLen(childrenExpression);
                 // 迭代解析子表达式
                 ExpressNode childrenHeadNode = parse(childrenExpression);
+
                 andTypeNode.getChildrenNodes().add(childrenHeadNode);
 
                 headConditionNode.getChildrenNodes().add(andTypeNode);
 
                 index = index + childrenExpressionLen + 2;
+            }
+            else
+            {
+                throw new ExpressionSyntaxExpression("错误的表达式:" + expression);
             }
         }
         return headConditionNode;
