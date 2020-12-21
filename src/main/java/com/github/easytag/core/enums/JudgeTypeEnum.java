@@ -15,6 +15,30 @@ public enum JudgeTypeEnum {
         this.desc = desc;
     }
 
+    public static boolean exist(String value) {
+        JudgeTypeEnum[] judgeTypeEnums = JudgeTypeEnum.values();
+        for (JudgeTypeEnum judgeTypeEnum : judgeTypeEnums) {
+            if(value.equals(judgeTypeEnum.getDesc())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean notExist(String value) {
+        return !exist(value);
+    }
+
+    public static JudgeTypeEnum findByName(String name) {
+        JudgeTypeEnum[] judgeTypeEnums = JudgeTypeEnum.values();
+        for (JudgeTypeEnum judgeTypeEnum : judgeTypeEnums) {
+            if(judgeTypeEnum.name().equals(name)) {
+                return judgeTypeEnum;
+            }
+        }
+        return null;
+    }
+
     public Integer getCode() {
         return code;
     }
