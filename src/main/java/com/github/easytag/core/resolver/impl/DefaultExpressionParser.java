@@ -17,7 +17,16 @@ import java.util.Map;
 
 public class DefaultExpressionParser implements ExpressionParser {
 
+    private static final DefaultExpressionParser defaultExpressionParser = new DefaultExpressionParser();
+
     private static final String EXPRESSION_REGEX = " ";
+
+    private DefaultExpressionParser() {
+    }
+
+    public static DefaultExpressionParser getInstance() {
+        return defaultExpressionParser;
+    }
 
     @Override
     public ExpressNode parse(String expression) {
@@ -36,14 +45,14 @@ public class DefaultExpressionParser implements ExpressionParser {
     private ExpressionContext doParseExpression(ExpressCondition expressCondition) {
         ExpressionContext expressionContext = new ExpressionContext();
         // 变量抽取
-        Map<String, Object> variables = new HashMap<>();
+        Map<String, LogicData> variables = new HashMap<>();
         String expression = revertExpress(expressCondition, variables);
         expressionContext.setVariables(variables);
         expressionContext.setExpression(expression);
         return expressionContext;
     }
 
-    private String revertExpress(ExpressCondition expressCondition, Map<String, Object> variables) {
+    private String revertExpress(ExpressCondition expressCondition, Map<String, LogicData> variables) {
         StringBuffer expression = new StringBuffer();
         List<ExpressBranch> expressBranches = expressCondition.getExpressBranches();
         for (ExpressBranch expressBranch : expressBranches) {
@@ -62,7 +71,7 @@ public class DefaultExpressionParser implements ExpressionParser {
         return expression.toString().trim();
     }
 
-    private String revertCondition(ExpressCondition childrenCondition, Map<String, Object> variables) {
+    private String revertCondition(ExpressCondition childrenCondition, Map<String, LogicData> variables) {
         StringBuffer conditionExpress = new StringBuffer();
         conditionExpress.append(ExpressionMarkEnum.LEFT_CONDITION_MARK.getDesc()).append(EXPRESSION_REGEX);
 
@@ -82,7 +91,7 @@ public class DefaultExpressionParser implements ExpressionParser {
         return conditionExpress.toString().trim();
     }
 
-    private String revertItem(ExpressItem expressItem, Map<String, Object> variables) {
+    private String revertItem(ExpressItem expressItem, Map<String, LogicData> variables) {
         StringBuffer itemExpress = new StringBuffer();
 
         String dataType = expressItem.getDataType();

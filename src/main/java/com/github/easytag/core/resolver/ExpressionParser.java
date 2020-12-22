@@ -14,7 +14,7 @@ public interface ExpressionParser {
     ExpressNode parse(String expression);
 
     /**
-     * dto转换成表达式
+     * dto转换成表达式(变量提取)
      * @return
      */
     ExpressionContext parseExpression(ExpressCondition expressCondition);

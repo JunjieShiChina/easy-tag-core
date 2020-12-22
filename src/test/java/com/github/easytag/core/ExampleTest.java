@@ -10,6 +10,10 @@ import com.github.easytag.core.dto.judge.JudgeData;
 import com.github.easytag.core.enums.DataTypeEnum;
 import com.github.easytag.core.enums.JudgeTypeEnum;
 import com.github.easytag.core.enums.LogicalOperatorEnum;
+import com.github.easytag.core.executors.expression.ExpressNodeCalExecutor;
+import com.github.easytag.core.executors.expression.ExpressionExecutor;
+import com.github.easytag.core.executors.expression.impl.DefaultExpressNodeCalExecutor;
+import com.github.easytag.core.executors.expression.impl.DefaultExpressionExecutor;
 import com.github.easytag.core.resolver.impl.DefaultExpressionParser;
 
 import java.text.DateFormat;
@@ -17,8 +21,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ExampleTest {
 
@@ -91,18 +93,22 @@ public class ExampleTest {
         ExpressBranch expressBranch = new ExpressBranch();
         ExpressItem expressItem = new ExpressItem();
         expressItem.setDataType(DataTypeEnum.INTEGER.name());
-        expressItem.setLogicalOperator(LogicalOperatorEnum.GREATER.name());
+        expressItem.setLogicalOperator(LogicalOperatorEnum.LESS.name());
         expressItem.setSourceData(2);
         expressItem.setTargetData(1);
         expressBranch.setExpressItem(expressItem);
         expressCondition.setExpressBranches(Arrays.asList(expressBranch));
 
-        DefaultExpressionParser defaultExpressionParser = new DefaultExpressionParser();
+        DefaultExpressionParser defaultExpressionParser = DefaultExpressionParser.getInstance();
         ExpressionContext expressionContext = defaultExpressionParser.parseExpression(expressCondition);
         System.out.println(expressionContext);
 
         ExpressNode parseNode = defaultExpressionParser.parse(expressionContext.getExpression());
         System.out.println(parseNode);
+
+        ExpressionExecutor expressionExecutor = DefaultExpressionExecutor.getInstance();
+        boolean execute5 = expressionExecutor.execute(expressionContext);
+        System.out.println(execute5);
     }
 
 

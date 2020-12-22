@@ -1,5 +1,7 @@
 package com.github.easytag.core.dto.express;
 
+import com.github.easytag.core.dto.logic.LogicData;
+
 import java.io.Serializable;
 import java.util.Map;
 
@@ -11,7 +13,7 @@ public class ExpressionContext implements Serializable {
     // 转换得到的表达式
     private String expression;
     // 变量集合
-    private Map<String, Object> variables;
+    private Map<String, LogicData> variables;
 
     public String getExpression() {
         return expression;
@@ -21,11 +23,11 @@ public class ExpressionContext implements Serializable {
         this.expression = expression;
     }
 
-    public Map<String, Object> getVariables() {
+    public Map<String, LogicData> getVariables() {
         return variables;
     }
 
-    public void setVariables(Map<String, Object> variables) {
+    public void setVariables(Map<String, LogicData> variables) {
         this.variables = variables;
     }
 }
