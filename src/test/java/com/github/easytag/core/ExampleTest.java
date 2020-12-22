@@ -13,6 +13,8 @@ import com.github.easytag.core.enums.LogicalOperatorEnum;
 import com.github.easytag.core.executors.expression.ExpressionExecutor;
 import com.github.easytag.core.executors.expression.impl.DefaultExpressionExecutor;
 import com.github.easytag.core.resolver.impl.DefaultExpressionParser;
+import com.github.easytag.core.service.EasyTagService;
+import com.github.easytag.core.service.impl.DefaultEasyTagService;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -107,6 +109,10 @@ public class ExampleTest {
         ExpressionExecutor expressionExecutor = DefaultExpressionExecutor.getInstance();
         boolean execute5 = expressionExecutor.execute(expressionContext);
         System.out.println(execute5);
+
+        EasyTagService easyTagService = DefaultEasyTagService.getInstance();
+        boolean handle = easyTagService.handle(expressCondition);
+        System.out.println(handle);
     }
 
 
