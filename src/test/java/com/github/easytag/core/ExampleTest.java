@@ -10,9 +10,7 @@ import com.github.easytag.core.dto.judge.JudgeData;
 import com.github.easytag.core.enums.DataTypeEnum;
 import com.github.easytag.core.enums.JudgeTypeEnum;
 import com.github.easytag.core.enums.LogicalOperatorEnum;
-import com.github.easytag.core.executors.expression.ExpressNodeCalExecutor;
 import com.github.easytag.core.executors.expression.ExpressionExecutor;
-import com.github.easytag.core.executors.expression.impl.DefaultExpressNodeCalExecutor;
 import com.github.easytag.core.executors.expression.impl.DefaultExpressionExecutor;
 import com.github.easytag.core.resolver.impl.DefaultExpressionParser;
 
