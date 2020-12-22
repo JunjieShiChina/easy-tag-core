@@ -17,6 +17,16 @@ public enum DataTypeEnum {
         this.desc = desc;
     }
 
+    public static DataTypeEnum findByName(String dataType) {
+        DataTypeEnum[] dataTypeEnums = DataTypeEnum.values();
+        for (DataTypeEnum dataTypeEnum : dataTypeEnums) {
+            if(dataTypeEnum.name().equals(dataType)) {
+                return dataTypeEnum;
+            }
+        }
+        return null;
+    }
+
     public Integer getCode() {
         return code;
     }

@@ -1,24 +1,24 @@
 package com.github.easytag.core;
 
-import com.github.easytag.core.dto.express.ExpressNode;
-import com.github.easytag.core.dto.logic.LogicData;
-import com.github.easytag.core.enums.DataTypeEnum;
-import com.github.easytag.core.enums.ExpressionMarkEnum;
-import com.github.easytag.core.enums.LogicalOperatorEnum;
 import com.github.easytag.core.driver.comparator.ComparatorDriver;
 import com.github.easytag.core.driver.comparator.impl.DefaultComparatorDriver;
 import com.github.easytag.core.driver.judgetype.JudgeTypeDriver;
 import com.github.easytag.core.driver.judgetype.impl.DefaultJudgeTypeDriver;
 import com.github.easytag.core.dto.comparator.CompareData;
+import com.github.easytag.core.dto.express.*;
 import com.github.easytag.core.dto.judge.JudgeData;
+import com.github.easytag.core.enums.DataTypeEnum;
 import com.github.easytag.core.enums.JudgeTypeEnum;
-import com.github.easytag.core.resolver.ExpressionParser;
+import com.github.easytag.core.enums.LogicalOperatorEnum;
 import com.github.easytag.core.resolver.impl.DefaultExpressionParser;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ExampleTest {
 
@@ -77,14 +77,32 @@ public class ExampleTest {
         boolean execute4 = judgeTypeDriver.execute(judgeData);
         System.out.println(execute4);
 
-        Map<String, Object> expressionVars = new HashMap<>();
-        expressionVars.put("A", "123");
-        expressionVars.put("B", new String[]{"a","b", "abc"});
-        String expression = "A IN B AND [ A GREATER C OR C LESS D ] AND [ D IN E AND [ [ E GREATER F OR E EQUALS F ] OR F EQUALS G ] ]";
+
+//        Map<String, Object> expressionVars = new HashMap<>();
+//        expressionVars.put("A", "123");
+//        expressionVars.put("B", new String[]{"a","b", "abc"});
+//        String expression = "A IN B AND [ A GREATER C OR C LESS D ] AND [ D IN E AND [ [ E GREATER F OR E EQUALS F ] OR F EQUALS G ] ]";
+//
+//        DefaultExpressionParser defaultExpressionParser = new DefaultExpressionParser();
+//        ExpressNode headNode = defaultExpressionParser.parse(expression);
+//        System.out.println(headNode);
+
+        ExpressCondition expressCondition = new ExpressCondition();
+        ExpressBranch expressBranch = new ExpressBranch();
+        ExpressItem expressItem = new ExpressItem();
+        expressItem.setDataType(DataTypeEnum.INTEGER.name());
+        expressItem.setLogicalOperator(LogicalOperatorEnum.GREATER.name());
+        expressItem.setSourceData(2);
+        expressItem.setTargetData(1);
+        expressBranch.setExpressItem(expressItem);
+        expressCondition.setExpressBranches(Arrays.asList(expressBranch));
 
         DefaultExpressionParser defaultExpressionParser = new DefaultExpressionParser();
-        ExpressNode headNode = defaultExpressionParser.parse(expression);
-        System.out.println(headNode);
+        ExpressionContext expressionContext = defaultExpressionParser.parseExpression(expressCondition);
+        System.out.println(expressionContext);
+
+        ExpressNode parseNode = defaultExpressionParser.parse(expressionContext.getExpression());
+        System.out.println(parseNode);
     }
 
 
