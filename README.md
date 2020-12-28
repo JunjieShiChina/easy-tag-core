@@ -111,5 +111,5 @@ System.out.println(result);
 ```
 ---
 ## 实现原理如图
-![image](/imgs/easy-tag数据结构.png)
+![image](/src/main/resources/imgs/easy-tag数据结构.png)
 
