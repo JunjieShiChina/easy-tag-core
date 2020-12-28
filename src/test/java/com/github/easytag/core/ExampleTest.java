@@ -111,8 +111,8 @@ public class ExampleTest {
         System.out.println(execute5);
 
         EasyTagService easyTagService = DefaultEasyTagService.getInstance();
-        boolean handle = easyTagService.handle(expressCondition);
-        System.out.println(handle);
+        boolean result = easyTagService.handle(expressCondition);
+        System.out.println(result);
     }
 
 
