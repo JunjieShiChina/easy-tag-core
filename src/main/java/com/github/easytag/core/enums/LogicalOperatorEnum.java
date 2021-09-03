@@ -1,7 +1,5 @@
 package com.github.easytag.core.enums;
 
-import sun.rmi.runtime.Log;
-
 /**
  * 逻辑运算符枚举
  */
